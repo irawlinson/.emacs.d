@@ -810,6 +810,7 @@
   #+BEGIN_SRC emacs-lisp
 (setq ibuffer-saved-filter-groups
       '(("home"
+         ("Magit" (name . "\*magit"))
          ("Config" (or (filename . ".emacs.d")
                        (filename . "emacs-config")
                        (filename . ".zshrc")))
@@ -831,7 +832,6 @@
          ;; ("Web Dev" (or (mode . html-mode)
          ;;                (mode . css-mode)))
          ("Subversion" (name . "\*svn"))
-         ("Magit" (name . "\*magit"))
          ("Helm" (name . "\*helm*"))
          ("Help" (or (name . "\*Help\*")
                      (name . "\*Apropos\*")
@@ -1535,8 +1535,18 @@ boundaries of the current start and end tag , or nil."
    #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-x") 'helm-M-x)
    #+END_SRC
+   Use the helm kill ring
    #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+   #+END_SRC
+   Use =helm-mini= instead of =buffer=
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x b") 'helm-mini)
+   #+END_SRC
+** Fuzzy Matching
+   #+BEGIN_SRC emacs-lisp
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
    #+END_SRC
 * Kill Buffers
   Kill the scratch buffer
