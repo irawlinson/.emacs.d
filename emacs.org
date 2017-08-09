@@ -1,0 +1,1550 @@
+#+TITLE: Emacs Init
+#+AUTHOR: Isaiah Rawlinson
+#+email: ijg.rawlinson@gmail.com
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage{fullpage,listings,inconsolata,graphicx}
+#+OPTIONS: toc:2 H:4 ':t
+#+LaTeX: \setcounter{secnumdepth}{0}
+#+PROPERTY: header-args:emacs-lisp :results silent
+
+* Initialization
+** Added by package.el
+   Added by Package.el.  This must come before configurations of
+   installed packages.  Don't delete this line.  If you don't want it,
+   just comment it out by adding a semicolon to the start of the line.
+   You may delete these explanatory comments.
+#+BEGIN_SRC emacs-lisp
+(package-initialize)
+(setq package-enable-at-startup nil)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(initial-buffer-choice 'ibuffer)
+ '(TeX-fold-auto nil)
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(ansi-color-names-vector
+   (vector "#ffffff" "#f36c60" "#8bc34a" "#fff59d" "#4dd0e1" "#b39ddb" "#81d4fa" "#263238"))
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#657b83")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(custom-enabled-themes nil)
+ '(custom-safe-themes
+   (quote
+    ("486759384769d44b22bb46072726c2cfb3ccc3d49342e5af1854784d505ffc01" "01ac390c8aa5476078be3769f3c72a9e1f5820c9d9a8e8fcde21d0ff0bbeeec1" "89b5c642f4bbcf955215c8f756ae352cdc6b7b0375b01da1f1aa5fd652ae822e" "5cd0afd0ca01648e1fff95a7a7f8abec925bd654915153fb39ee8e72a8b56a1f" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "3cc2385c39257fed66238921602d8104d8fd6266ad88a006d0a4325336f5ee02" "49b36c626548d200f97144cedb44f0a48020fda221b9e2930dc7d95ef4013eb1" "3c98d13ae2fc7aa59f05c494e8a15664ff5fe5db5256663a907272869c4130dd" "71182be392aa922f3c05e70087a40805ef2d969b4f8f965dfc0fc3c2f5df6168" "5436e5df71047d1fdd1079afa8341a442b1e26dd68b35b7d3c5ef8bd222057d1" "4e753673a37c71b07e3026be75dc6af3efbac5ce335f3707b7d6a110ecb636a3" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "e0d42a58c84161a0744ceab595370cbe290949968ab62273aed6212df0ea94b4" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "0c29db826418061b40564e3351194a3d4a125d182c6ee5178c237a7364f0ff12" "96998f6f11ef9f551b427b8853d947a7857ea5a578c75aa9c4e7c73fe04d10b4" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" "9b59e147dbbde5e638ea1cde5ec0a358d5f269d27bd2b893a0947c4a867e14c1" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "ab0950f92dc5e6b667276888cb0cdbc35fd1c16f667170a62c15bd3ed5ae5c5a" "5dc0ae2d193460de979a463b907b4b2c6d2c9c4657b2e9e66b8898d2592e3de5" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
+ '(debug-on-error nil)
+ '(fci-rule-color "#37474f")
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#fdf6e3" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#586e75")
+ '(highlight-tail-colors
+   (quote
+    (("#eee8d5" . 0)
+     ("#B4C342" . 20)
+     ("#69CABF" . 30)
+     ("#69B7F0" . 50)
+     ("#DEB542" . 60)
+     ("#F2804F" . 70)
+     ("#F771AC" . 85)
+     ("#eee8d5" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
+ '(hl-fg-colors
+   (quote
+    ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
+ '(hl-sexp-background-color "#1c1f26")
+ '(inhibit-startup-screen t)
+ '(linum-format " %1i ")
+ '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+   (quote
+    ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
+ '(org-agenda-files (quote ("~/Google Drive/org/school.org")))
+ '(org-src-preserve-indentation t)
+ '(package-selected-packages
+   (quote
+    (org-beautify ob-go merlin tuareg leuven-theme anti-zenburn-theme solarized-theme monokai-theme ujelly-theme ample-theme zenburn-theme zenburn warm-night-theme org theme-changer sublime-themes sublimity cdlatex wc-mode adaptive-wrap auctex auto-complete-auctex go-guru go-autocomplete auto-complete exec-path-from-shell go-mode material-theme elpy multiple-cursors)))
+ '(pdf-view-midnight-colors (quote ("#232333" . "#c7c7c7")))
+ '(pos-tip-background-color "#eee8d5" t)
+ '(pos-tip-foreground-color "#586e75" t)
+ '(safe-local-variable-values (quote ((TeX-master . t))))
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+ '(term-default-bg-color "#fdf6e3")
+ '(term-default-fg-color "#657b83")
+ '(vc-annotate-background nil)
+ '(vc-annotate-background-mode nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#f36c60")
+     (40 . "#ff9800")
+     (60 . "#fff59d")
+     (80 . "#8bc34a")
+     (100 . "#81d4fa")
+     (120 . "#4dd0e1")
+     (140 . "#b39ddb")
+     (160 . "#f36c60")
+     (180 . "#ff9800")
+     (200 . "#fff59d")
+     (220 . "#8bc34a")
+     (240 . "#81d4fa")
+     (260 . "#4dd0e1")
+     (280 . "#b39ddb")
+     (300 . "#f36c60")
+     (320 . "#ff9800")
+     (340 . "#fff59d")
+     (360 . "#8bc34a"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
+ '(xterm-color-names
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
+ '(xterm-color-names-bright
+   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
+#+END_SRC
+** Package Repositories
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+
+;; TODO: put all the packages I use here
+(setq package-list
+      '(adaptive-wrap
+        anti-zenburn-theme
+        auctex
+        auto-complete
+        auto-complete-auctex
+        better-defaults
+        cdlatex
+        elpy
+        exec-path-from-shell
+        go-autocomplete
+        go-guru
+        go-mode
+        leuven-theme
+        material-theme
+        merlin
+        multiple-cursors
+        ob-go
+        org
+        solarized-theme
+        theme-changer
+        tuareg
+        wc-mode
+        zenburn
+        zenburn-theme
+        ace-jump-mode
+        all-the-icons
+        async
+        bind-key
+        caml
+        company
+        company-tern
+        context-coloring
+        darkroom
+        dash
+        dash-functional
+        diminish
+        django-mode
+        doom-themes
+        edit-indirect
+        emmet-mode
+        epl
+        f
+        find-file-in-project
+        font-lock+
+        git-commit
+        gnuplot
+        gnuplot-mode
+        helm
+        helm-core
+        helm-make
+        highlight-indentation
+        ibuffer-vc
+        ivy
+        js2-mode
+        js2-refactor
+        linum-off
+        magit
+        magit-popup
+        markdown-mode
+        markdown-mode+
+        memoize
+        neotree
+        org-beautify-theme
+        pkg-info
+        popup
+        projectile
+        pyvenv
+        s
+        tern
+        tern-auto-complete
+        tern-context-coloring
+        tern-django
+        use-package
+        web-mode
+        with-editor
+        xref-js2
+        yasnippet))
+
+(setq package-archives '(("org" . "http://orgmode.org/elpa/")
+                         ("gnu". "https://elpa.gnu.org/packages/")
+			 ("marmalade". "https://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
+(package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+;; (package-install 'org-plus-contrib)
+#+END_SRC
+** Emacs Directory
+#+BEGIN_SRC emacs-lisp
+(defconst user-init-dir
+  (cond ((boundp 'user-emacs-directory)
+	 user-emacs-directory)
+	((boundp 'user-init-directory)
+	 user-init-directory)
+	(t "~/.emacs.d/")))
+#+END_SRC
+** Desktop Saving
+#+BEGIN_SRC emacs-lisp
+(desktop-save-mode 1)
+#+END_SRC
+** Better Defaults
+#+BEGIN_SRC emacs-lisp
+(require 'better-defaults)
+#+END_SRC
+** Yes or No
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** Enabled Commands
+#+BEGIN_SRC emacs-lisp
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+#+END_SRC
+* Path
+#+BEGIN_SRC emacs-lisp
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$"
+                          ""
+                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq eshell-path-env path-from-shell) ; for eshell users
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(when window-system (set-exec-path-from-shell-PATH))
+
+(setenv "GOPATH" "/Users/isaiahrawlinson/go")
+#+END_SRC
+** LaTeX Distribution
+#+BEGIN_SRC emacs-lisp
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(setq exec-path (append exec-path '("/Library/TeX/texbin")))
+(load "auctex.el" nil t t)
+#+END_SRC
+* GUI
+** Theme
+   - Disable all active themes before initializing a theme
+   - Cycle day/night themes
+#+BEGIN_SRC emacs-lisp
+(defun disable-all-themes ()
+  "disable all active themes."
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
+
+(defadvice load-theme (before disable-themes-first activate)
+  (disable-all-themes))
+
+(setq calendar-location-name "Boston, MA")
+(setq calendar-latitude 42.339574)
+(setq calendar-longitude -71.156881)
+(require 'theme-changer)
+(change-theme 'material 'zenburn)
+;; (change-theme 'leuven 'doom-one)
+
+#+END_SRC
+** Window Transparency
+
+#+BEGIN_SRC emacs-lisp
+;; (set-frame-parameter (selected-frame) 'alpha '(85 . 50))
+;; (add-to-list 'default-frame-alist '(alpha . (100 . 100)))
+#+END_SRC
+** Font
+#+BEGIN_SRC emacs-lisp
+(set-frame-font "DejaVu Sans Mono-14:medium:book")
+;; (set-frame-font "Ubuntu Mono-20:medium")
+#+END_SRC
+** Lines
+*** Line Numbers
+    Number lines by default
+ #+BEGIN_SRC emacs-lisp
+(global-linum-mode t)
+ #+END_SRC
+
+    Disable line numbers in certain modes
+ #+BEGIN_SRC emacs-lisp
+(require 'linum-off)
+ #+END_SRC
+
+*** Highlighting
+    Highlight current line
+ #+BEGIN_SRC emacs-lisp
+(global-hl-line-mode t)
+ #+END_SRC
+** Cursor Style
+#+BEGIN_SRC emacs-lisp
+(setq-default cursor-type 'box)
+#+END_SRC
+** Parentheses
+#+BEGIN_SRC emacs-lisp
+(electric-pair-mode t)
+#+END_SRC
+** Scrolling
+#+BEGIN_SRC emacs-lisp
+;; (use-package smooth-scroll
+;;   :config
+;;   (smooth-scroll-mode 1)
+;;   (setq smooth-scroll/vscroll-step-size 5)
+;;   )
+#+END_SRC
+* Keys
+** Modifiers
+   | cmd  | meta  |
+   | opt  | hyper |
+   | ctrl | ctrl  |
+   | fn   | hyper |
+** Apple Keyboard
+ #+BEGIN_SRC emacs-lisp
+(setq ns-command-modifier 'meta)
+(setq ns-alternate-modifier 'hyper)
+(setq mac-control-modifier 'control)
+(setq ns-function-modifier 'hyper)
+ #+END_SRC
+** Functions
+   - Eval and replace
+   - Toggle transparency
+   - Comment/uncomment region
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "H-e") 'eval-and-replace)
+(global-set-key (kbd "H-t") 'toggle-transparency)
+(global-set-key (kbd "C-c c") 'comment-region)
+(global-set-key (kbd "C-c u") 'uncomment-region)
+#+END_SRC
+** Multiple Cursors
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "H-SPC") 'mc/mark-next-like-this)
+(global-set-key (kbd "H-l") 'mc/edit-lines)
+(global-set-key (kbd "H-r") 'set-rectangular-region-anchor)
+(global-set-key (kbd "H-y") 'yank-rectangle)
+(global-set-key (kbd "H-a") 'mc/mark-all-like-this)
+(global-set-key (kbd "H-n") 'mc/insert-numbers)
+(global-set-key (kbd "H-b") 'mc/insert-letters)
+(global-set-key (kbd "H-s") 'mc/sort-regions)
+#+END_SRC
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+(add-hook 'org-mode-hook
+          (lambda () (local-set-key (kbd "H-o l") 'org-latex-skeleton)))
+
+(add-hook 'org-mode-hook
+          (lambda () (local-set-key (kbd "H-m") 'org-latex-matrix-skeleton)))
+#+END_SRC
+** Lazy Set Key
+#+BEGIN_SRC emacs-lisp
+(defun lazy-set-autoload-key (key-alist filename)
+  (lazy-set-key key-alist)
+  (dolist (element key-alist)
+    (setq fun (cdr element))
+    (autoload fun filename))
+  )
+
+(defun lazy-set-prefix-autoload-key (key-alist keymap key-prefix filename)
+  (lazy-set-key key-alist keymap key-prefix)
+  (dolist (element key-alist)
+    (setq fun (cdr element))
+    (autoload fun filename)))
+
+(defun lazy-set-mode-autoload-key (key-alist keymap key-prefix filename)
+  (lazy-set-key key-alist keymap key-prefix)
+  (dolist (element key-alist)
+    (setq fun (cdr element))
+    (autoload fun filename))
+  )
+
+(defun lazy-set-key (key-alist &optional keymap key-prefix)
+  "This function is to little type when define key binding.
+`KEYMAP' is a add keymap for some binding, default is `current-global-map'.
+`KEY-ALIST' is a alist contain main-key and command.
+`KEY-PREFIX' is a add prefix for some binding, default is nil."
+  (let (key def)
+    (or keymap (setq keymap (current-global-map)))
+    (if key-prefix
+        (setq key-prefix (concat key-prefix " "))
+      (setq key-prefix ""))
+    (dolist (element key-alist)
+      (setq key (car element))
+      (setq def (cdr element))
+      (cond ((stringp key) (setq key (read-kbd-macro (concat key-prefix key))))
+            ((vectorp key) nil)
+            (t (signal 'wrong-type-argument (list 'array key))))
+      (define-key keymap key def))))
+
+(defun lazy-unset-key (key-list &optional keymap)
+  "This function is to little type when unset key binding.
+`KEYMAP' is add keymap for some binding, default is `current-global-map'
+`KEY-LIST' is list contain key."
+  (let (key)
+    (or keymap (setq keymap (current-global-map)))
+    (dolist (key key-list)
+      (cond ((stringp key) (setq key (read-kbd-macro (concat key))))
+            ((vectorp key) nil)
+            (t (signal 'wrong-type-argument (list 'array key))))
+      (define-key keymap key nil))))
+#+END_SRC
+** iBuffer
+#+BEGIN_SRC emacs-lisp
+;; (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+* Text Interaction
+  Delete selected text when typing over it.
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode 't)
+#+END_SRC
+  Delete trailing whitespace on save
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+** Tab Size
+#+BEGIN_SRC emacs-lisp
+(setq default-tab-width 2)
+#+END_SRC
+** Ace Jump
+#+BEGIN_SRC emacs-lisp
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+#+END_SRC
+* Python
+** Elpy Configuration
+#+BEGIN_SRC emacs-lisp
+(elpy-enable)
+#+END_SRC
+** Shell Completion
+#+BEGIN_SRC emacs-lisp
+(defun python-shell-completion-native-try ()
+  "Return non-nil if can trigger native compleion."
+  (let ((python-shell-completion-native-enable t)
+        (python-shell-completion-native-output-timeout
+         python-shell-completion-native-try-output-timeout))
+    (python-shell-completion-native-get-completions
+     (get-buffer-process (current-buffer))
+     nil "_")))
+#+END_SRC
+* AUCTeX
+#+BEGIN_SRC emacs-lisp
+(require 'tex)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+#+END_SRC
+** Keys
+#+BEGIN_SRC emacs-lisp
+(add-hook 'LaTeX-mode-hook
+          (lambda () (local-set-key (kbd "C-c C-SPC") 'align-current)))
+#+END_SRC
+** Functions
+#+BEGIN_SRC emacs-lisp
+(defun flyspell-ignore-tex ()
+  (interactive)
+  (set (make-variable-buffer-local 'ispell-parser) 'tex))
+
+(defun activate-auto-fill ()
+  (when (y-or-n-p "Auto Fill mode? ")
+    (turn-on-auto-fill)))
+#+END_SRC
+** Style Hooks
+#+BEGIN_SRC emacs-lisp
+(defun my-LaTeX-mode-hook ()
+  (visual-line-mode)
+  (LaTeX-math-mode)
+  (turn-on-reftex)
+  (auto-complete-mode)
+  (tex-fold-mode)
+  (flyspell-mode)
+  (flyspell-buffer)
+  (wc-mode)
+  (turn-on-auto-fill)
+  (setq flyspell-issue-message-flag nil)
+  (flyspell-ignore-tex)
+  (setq-local electric-pair-local-mode nil)
+  (setq LaTeX-electric-left-right-brace t)
+  (setq TeX-PDF-mode t)
+  (setq reftex-plug-into-AUCTeX t)
+  (LaTeX-math-mode)
+  (setq TeX-PDF-mode t)
+  (tex-fold-mode)
+  (setq TeX-command-default "latexmk")
+  (setq ispell-parser 'tex))
+
+(add-hook 'LaTeX-mode-hook 'my-LaTeX-mode-hook)
+
+(add-hook 'LaTeX-mode-hook (lambda ()
+  (push
+    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+      :help "Run latexmk on file")
+    TeX-command-list)))
+#+END_SRC
+** Skim
+#+BEGIN_SRC emacs-lisp
+(setq TeX-view-program-selection '((output-pdf "Skim")))
+(setq TeX-view-program-list
+      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+#+END_SRC
+* Org Mode
+#+BEGIN_SRC emacs-lisp
+(require 'org)
+#+END_SRC
+** Keys
+   Access agenda globally with C-a
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+#+END_SRC
+** Agenda
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-files '("~/Documents/org"))
+#+END_SRC
+** Babel
+   Languages which can be evaluated in org-babel
+#+BEGIN_SRC emacs-lisp
+(require 'ob-emacs-lisp)
+(require 'ob-C)
+(require 'ob-python)
+(require 'ob-ocaml)
+(require 'ob-java)
+(require 'ob-R)
+(require 'ob-gnuplot)
+(require 'ob-css)
+(require 'ob-js)
+(require 'ob-latex)
+(require 'ob-go)
+(require 'ob-sql)
+(require 'ob-ruby)
+(require 'ob-shell)
+(require 'ob-org)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (C . t)
+   (python . t)
+   (ocaml . t)
+   (java . t)
+   (R . t)
+   (gnuplot . t)
+   (css . t)
+   (js . t)
+   (latex . t)
+   (go . t)
+   (sql . t)
+   (ruby . t)
+   (shell . t)
+   (org . t)))
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (member lang
+               '("emacs-lisp"
+                 "C"
+                 "python"
+                 "ocaml"
+                 "java"
+                 "R"
+                 "gnuplot"
+                 "css"
+                 "js"
+                 "latex"
+                 "go"
+                 "sql"
+                 "ruby"
+                 "shell"
+                 "org"))))
+
+
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+#+END_SRC
+** Export
+#+BEGIN_SRC emacs-lisp
+(require 'ox-latex)
+(add-to-list 'org-latex-classes
+             '("beamer"
+               "\\documentclass\[presentation\]\{beamer\}"
+               ("\\section\{%s\}" . "\\section*\{%s\}")
+               ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+               ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")))
+(require 'ox-beamer)
+#+END_SRC
+** Spellcheck
+   Make spellcheck ignore LaTeX commands.
+#+BEGIN_SRC emacs-lisp
+(defun flyspell-ignore-tex ()
+  (interactive)
+  (set (make-variable-buffer-local 'ispell-parser) 'tex))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq flyspell-issue-message-flag nil)
+(add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
+#+END_SRC
+** Auto Wrap Text
+   [ ] Ask before turning on text wrapping.
+#+BEGIN_SRC emacs-lisp
+(defun activate-auto-fill ()
+  (when (y-or-n-p "Auto Fill mode? ")
+    (turn-on-auto-fill)))
+#+END_SRC
+** Darkroom
+#+BEGIN_SRC emacs-lisp
+(require 'darkroom)
+#+END_SRC
+** Style Hooks
+#+BEGIN_SRC emacs-lisp
+(defun my-org-hooks ()
+  (flyspell-mode)
+  (flyspell-buffer)
+  (wc-mode)
+  (flyspell-ignore-tex)
+  (setq org-footnote-auto-adjust t)
+  (turn-on-org-cdlatex)
+  (turn-on-auto-fill))
+
+(add-hook 'org-mode-hook 'my-org-hooks)
+#+END_SRC
+** CDLaTeX
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-pdf-process (quote (
+                                    "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+                                    "bibtex $(basename %b)"
+                                    "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+                                    "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+;;; We could end here, but repeat to ensure full completion.
+                                    "bibtex $(basename %b)"
+                                    "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+                                    "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f")))
+#+END_SRC
+** Org Bullets
+#+BEGIN_SRC emacs-lisp
+;; use org-bullets-mode for utf8 symbols as org bullets
+;; (require 'org-bullets)
+;; make available "org-bullet-face" such that I can control the font size individually
+;; (setq org-bullets-face-name (quote org-bullet-face))
+;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
+#+END_SRC
+* Skeletons
+  My default org-mode latex header
+#+BEGIN_SRC emacs-lisp
+(define-skeleton org-latex-skeleton
+  "Header info for a emacs-org file."
+  "Title: "
+  "#+TITLE:     " str " \n"
+  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+email:     isaiah.rawlinson@optum.com\n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
+  "#+LATEX_HEADER: \\usepackage{fullpage,listings,inconsolata,graphicx,units}\n"
+  "#+OPTIONS: toc:2 H:4 ':t\n"
+  "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
+  )
+(add-hook 'org-mode-hook
+          (lambda () (local-set-key (kbd "H-o l") 'org-latex-skeleton)))
+#+END_SRC
+  A matrix skeleton
+#+BEGIN_SRC emacs-lisp
+(define-skeleton org-latex-matrix-skeleton
+  "A matrix in latex org mode."
+  ""
+  > "#+ATTR_LATEX: :mode "
+  (if (y-or-n-p "Inline math mode?")
+      "inline-")
+  > "math :environment bmatrix"
+  > " :math-prefix " (setq mp (skeleton-read "math prefix "))
+  > " :math-suffix " (setq ms (skeleton-read "math suffix "))\n
+  "| " _ " |"
+  )
+(add-hook 'org-mode-hook
+          (lambda () (local-set-key (kbd "H-m") 'org-latex-matrix-skeleton)))
+#+END_SRC
+  A skeleton for Beamer Presentations
+#+BEGIN_SRC emacs-lisp
+(define-skeleton org-beamer-skeleton
+  "Header for a Beamer presentation in org-mode."
+  "#+TITLE:     " str "\n"
+  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+EMAIL:     \n"
+  "#+DATE:      \n"
+  "#+DESCRIPTION: \n"
+  "#+KEYWORDS: \n"
+  "#+LANGUAGE:  en\n"
+  "#+OPTIONS:   H:3 num:t toc:nil \\n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
+  "#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n"
+  "#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js\n"
+  "#+EXPORT_SELECT_TAGS: export\n"
+  "#+EXPORT_EXCLUDE_TAGS: noexport\n"
+  "#+LINK_UP:   \n"
+  "#+LINK_HOME:\n"
+  "#+startup: beamer\n"
+  "#+LaTeX_CLASS: beamer\n"
+  "#+LaTeX_CLASS_OPTIONS: [bigger]\n"
+  "#+BEAMER_FRAME_LEVEL: 1\n"
+  "#+BEAMER_HEADER: \\graphicspath{{./images/}}\n"
+  "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
+  )
+
+(add-hook 'org-mode-hook
+          (lambda () (local-set-key (kbd "H-o b") 'org-beamer-skeleton)))
+#+END_SRC
+* Functions
+** Rename a file
+#+BEGIN_SRC emacs-lisp
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive
+   (progn
+     (if (not (buffer-file-name))
+         (error "Buffer '%s' is not visiting a file!" (buffer-name)))
+     (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
+                                                     (buffer-file-name)))))))
+  (if (equal new-name "")
+      (error "Aborted rename"))
+  (setq new-name (if (file-directory-p new-name)
+                     (expand-file-name (file-name-nondirectory
+                                        (buffer-file-name))
+                                       new-name)
+                   (expand-file-name new-name)))
+  ;; If the file isn't saved yet, skip the file rename, but still update the
+  ;; buffer name and visited file.
+  (if (file-exists-p (buffer-file-name))
+      (rename-file (buffer-file-name) new-name 1))
+  (let ((was-modified (buffer-modified-p)))
+    ;; This also renames the buffer, and works with uniquify
+    (set-visited-file-name new-name)
+    (if was-modified
+        (save-buffer)
+      ;; Clear buffer-modified flag caused by set-visited-file-name
+      (set-buffer-modified-p nil))
+    (message "Renamed to %s." new-name)))
+#+END_SRC
+** Eval and Replace (H-e)
+#+BEGIN_SRC emacs-lisp
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+(global-set-key (kbd "H-e") 'eval-and-replace)
+#+END_SRC
+** Toggle Transparency
+#+BEGIN_SRC emacs-lisp
+(defun toggle-transparency ()
+  (interactive)
+  (let ((alpha (frame-parameter nil 'alpha)))
+    (if (eq
+     (if (numberp alpha)
+         alpha
+       (cdr alpha)) ; may also be nil
+     100)
+    (set-frame-parameter nil 'alpha '(85 . 50))
+      (set-frame-parameter nil 'alpha '(100 . 100)))))
+#+END_SRC
+* Multiple Cursors
+#+BEGIN_SRC emacs-lisp
+(require 'multiple-cursors)
+(setq mc/list-file "~/.emacs.d/.mc-lists.el")
+#+END_SRC
+** Keys
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "H-SPC") 'mc/mark-next-like-this)
+(global-set-key (kbd "H-l") 'mc/edit-lines)
+(global-set-key (kbd "H-r") 'set-rectangular-region-anchor)
+(global-set-key (kbd "H-y") 'yank-rectangle)
+(global-set-key (kbd "H-a") 'mc/mark-all-like-this)
+(global-set-key (kbd "H-n") 'mc/insert-numbers)
+(global-set-key (kbd "H-b") 'mc/insert-letters)
+(global-set-key (kbd "H-s") 'mc/sort-regions)
+#+END_SRC
+* iBuffer
+** Notes
+*** Search all marked buffers
+    - =M-s a C-s= Do incremental search in the marked buffers.
+    - =M-s a C-M-s= Isearch for regexp in the marked buffers.
+    - =U= Replace by regexp in each of the marked buffers.
+    - =Q= Query replace in each of the marked buffers.
+    - =I= As above, with a regular expression.
+    - =O= Run occur on the marked buffers.
+** Groups
+*** By File Type
+  #+BEGIN_SRC emacs-lisp
+(setq ibuffer-saved-filter-groups
+      '(("home"
+         ("Config" (or (filename . ".emacs.d")
+                       (filename . "emacs-config")
+                       (filename . ".zshrc")))
+         ("Org" (or (mode . org-mode)
+                    (filename . "OrgMode")))
+         ("Markdown" (mode . markdown-mode))
+         ("LaTeX" (mode . latex-mode))
+         ("OCaml" (mode . tuareg-mode))
+         ("Python" (mode . python-mode))
+         ("C" (mode . c-mode))
+         ("Go" (mode . go-mode))
+         ("JavaScript" (or (mode . javascript-mode)
+                           (filename . ".js")
+                           (filename . ".json")))
+         ("Java" (mode . java-mode))
+         ("SQL" (mode . sql))
+         ("HTML" (mode . html-mode))
+         ("CSS" (mode . css-mode))
+         ;; ("Web Dev" (or (mode . html-mode)
+         ;;                (mode . css-mode)))
+         ("Subversion" (name . "\*svn"))
+         ("Magit" (name . "\*magit"))
+         ("Help" (or (name . "\*Help\*")
+                     (name . "\*Apropos\*")
+                     (name . "\*info\*"))))))
+  #+END_SRC
+** File Size
+   Use human readable Size column instead of original one
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'ibuffer
+  (define-ibuffer-column size-h
+    (:name "Size" :inline t)
+    (cond
+     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+     ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+     ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+     (t (format "%8d" (buffer-size)))))
+
+  ;; Modify the default ibuffer-formats
+  ;; (setq ibuffer-formats
+  ;;       '((mark modified read-only " "
+  ;;               (name 18 18 :left :elide)
+  ;;               " "
+  ;;               (size-h 9 -1 :right)
+  ;;               " "
+  ;;               (mode 16 16 :left :elide)
+  ;;               " "
+  ;;               filename-and-process)))
+
+  (setq ibuffer-formats
+        '((mark modified read-only " "
+                (name 50 50 :left :nil) " "
+                (size-h 9 -1 :right) " "
+                (mode 16 16 :left :elide) " "
+                filename-and-process))))
+#+END_SRC
+** Style Hooks
+#+BEGIN_SRC emacs-lisp
+(add-hook 'ibuffer-mode-hook
+	  '(lambda ()
+	     (ibuffer-auto-mode 1)
+             (setq ibuffer-expert t)
+             (setq ibuffer-show-empty-filter-groups nil)
+	     (ibuffer-switch-to-saved-filter-groups "home")
+             (local-set-key (kbd "H-v c") 'ibuffer-vc-set-filter-groups-by-vc-root)
+             (ibuffer-do-sort-by-alphabetic)))
+#+END_SRC
+* Magit
+** Keys
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "H-g c") 'magit-commit)
+(global-set-key (kbd "H-g p") 'magit-push)
+#+END_SRC
+** Style Hooks
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
+* Predictive Mode
+#+BEGIN_SRC emacs-lisp
+;; (require 'predictive)
+;; (add-to-list 'load-path "/Users/isaiahrawlinson/.emacs.d/predictive")
+;; (add-to-list 'load-path "/Users/isaiahrawlinson/.emacs.d/predictive/html")
+;; (add-to-list 'load-path "/Users/isaiahrawlinson/.emacs.d/predictive/latex")
+;; (add-to-list 'load-path "/Users/isaiahrawlinson/.emacs.d/predictive/misc")
+;; (add-to-list 'load-path "/Users/isaiahrawlinson/.emacs.d/predictive/texinfo")
+#+END_SRC
+* Jupyter
+#+BEGIN_SRC emacs-lisp
+(require 'ox-md)
+(require 'ox-org)
+
+(defun export-ipynb-code-cell (src-result)
+  "Return a lisp code cell for the org-element SRC-BLOCK."
+  (let* ((src-block (car src-result))
+	 (results-end (cdr src-result))
+	 (results (org-no-properties (car results-end)))
+	 (output-cells '())
+	 img-path img-data
+	 (start 0)
+	 end
+	 block-start block-end
+	 html
+	 latex)
+
+    ;; Handle inline images first
+    (while (string-match "\\[\\[file:\\(.*?\\)\\]\\]" (or results "") start)
+      (setq start (match-end 0))
+      (setq img-path (match-string 1 results)
+	    img-data (base64-encode-string
+		      (encode-coding-string
+		       (with-temp-buffer
+			 (insert-file-contents img-path)
+			 (buffer-string))
+		       'binary)
+		      t))
+      (add-to-list 'output-cells `((data . ((image/png . ,img-data)
+					    ("text/plain" . "<matplotlib.figure.Figure>")))
+				   (metadata . ,(make-hash-table))
+				   (output_type . "display_data"))
+		   t))
+    ;; now remove the inline images and put the results in.
+    (setq results (s-trim (replace-regexp-in-string "\\[\\[file:\\(.*?\\)\\]\\]" ""
+						    (or results ""))))
+
+    ;; Check for HTML cells. I think there can only be one I don't know what the
+    ;; problem is, but I can't get the match-end functions to work correctly
+    ;; here. Its like the match-data is not getting updated.
+    (when (string-match "#\\+BEGIN_EXPORT HTML" (or results ""))
+      (setq block-start (s-index-of "#+BEGIN_EXPORT HTML" results)
+	    start (+ block-start (length "#+BEGIN_EXPORT HTML\n")))
+
+      ;; Now, get the end of the block.
+      (setq end (s-index-of "#+END_EXPORT" results)
+	    block-end (+ end (length "#+END_EXPORT")))
+
+      (setq html (substring results start end))
+
+      ;; remove the old output.
+      (setq results (concat (substring results 0 block-start)
+			    (substring results block-end)))
+      (message "html: %s\nresults: %s" html results)
+      (add-to-list 'output-cells `((data . ((text/html . ,html)
+					    ("text/plain" . "HTML object")))
+				   (metadata . ,(make-hash-table))
+				   (output_type . "display_data"))
+		   t))
+
+    ;; Handle latex cells
+    (when (string-match "#\\+BEGIN_EXPORT latex" (or results ""))
+      (setq block-start (s-index-of "#+BEGIN_EXPORT latex" results)
+	    start (+ block-start (length "#+BEGIN_EXPORT latex\n")))
+
+      ;; Now, get the end of the block.
+      (setq end (s-index-of "#+END_EXPORT" results)
+	    block-end (+ end (length "#+END_EXPORT")))
+
+      (setq latex (substring results start end))
+
+      ;; remove the old output.
+      (setq results (concat (substring results 0 block-start)
+			    (substring results block-end)))
+
+      (add-to-list 'output-cells `((data . ((text/latex . ,latex)
+					    ("text/plain" . "Latex object")))
+				   (metadata . ,(make-hash-table))
+				   (output_type . "display_data"))
+		   t))
+
+    ;; output cells
+    (unless (string= "" results)
+      (setq output-cells (append `(((name . "stdout")
+				    (output_type . "stream")
+				    (text . ,results)))
+				 output-cells)))
+
+
+    `((cell_type . "code")
+      (execution_count . 1)
+      ;; the hashtable trick converts to {} in json. jupyter can't take a null here.
+      (metadata . ,(make-hash-table))
+      (outputs . ,(if (null output-cells)
+		      ;; (vector) json-encodes to  [], not null which
+		      ;; jupyter does not like.
+		      (vector)
+		    (vconcat output-cells)))
+      (source . ,(vconcat
+		  (list (s-trim (org-element-property :value src-block))))))))
+
+
+(defun ox-ipynb-filter-latex-fragment (text back-end info)
+  "Export org latex fragments for ipynb markdown.
+Latex fragments come from org as \(fragment\) for inline math or
+\[fragment\] for displayed math. Convert to $fragment$
+or $$fragment$$ for ipynb."
+  ;; \\[frag\\] or \\(frag\\) are also accepted by ipynb markdown (need double backslash)
+  (setq text (replace-regexp-in-string
+	      "\\\\\\[" "$$"
+	      (replace-regexp-in-string "\\\\\\]" "$$" text)))
+  (replace-regexp-in-string "\\\\(\\|\\\\)" "$" text))
+
+
+(defun ox-ipynb-filter-link (text back-end info)
+  "Make a link into markdown.
+For some reason I was getting angle brackets in them I wanted to remove.
+This only fixes file links with no description I think."
+  (if (s-starts-with? "<" text)
+      (let ((path (substring text 1 -1)))
+	(format "[%s](%s)" path path))
+    text))
+
+
+(defun export-ipynb-markdown-cell (beg end)
+  "Return the markdown cell for the region defined by BEG and END."
+  (let* ((org-export-filter-latex-fragment-functions '(ox-ipynb-filter-latex-fragment))
+	 (org-export-filter-link-functions '(ox-ipynb-filter-link))
+	 (org-export-filter-keyword-functions '(ox-ipynb-keyword-link))
+	 (md (org-export-string-as
+	      (buffer-substring-no-properties
+	       beg end)
+	      'md t '(:with-toc nil :with-tags nil))))
+
+    `((cell_type . "markdown")
+      (metadata . ,(make-hash-table))
+      (source . ,(vconcat
+		  (list md))))))
+
+
+(defun export-ipynb-keyword-cell ()
+  "Make a markdown cell containing org-file keywords and values."
+  (let* ((all-keywords (org-element-map (org-element-parse-buffer)
+			   'keyword
+			 (lambda (key)
+			   (cons (org-element-property :key key)
+				 (org-element-property :value key)))))
+	 (ipynb-keywords (cdr (assoc "OX-IPYNB-KEYWORD-METADATA" all-keywords)))
+	 (include-keywords (mapcar 'upcase (split-string (or ipynb-keywords ""))))
+	 (keywords (loop for key in include-keywords
+			 collect (cons key (cdr (assoc key all-keywords))))))
+
+    (setq keywords
+	  (loop for (key . value) in keywords
+		collect
+		(format "- %s: %s\n"
+			key
+			(replace-regexp-in-string
+			 "<\\|>" ""
+			 value))))
+    (when keywords
+      `((cell_type . "markdown")
+	(metadata . ,(make-hash-table))
+	(source . ,(vconcat keywords))))))
+
+
+(defun ox-ipynb-export-to-buffer ()
+  "Export the current buffer to ipynb format in a buffer.
+Only ipython source blocks are exported as code cells. Everything
+else is exported as a markdown cell. The output is in *ox-ipynb*."
+  (let ((cells (if (export-ipynb-keyword-cell) (list (export-ipynb-keyword-cell)) '()))
+	(metadata `(metadata . ((org . ,(let* ((all-keywords (org-element-map (org-element-parse-buffer)
+								 'keyword
+							       (lambda (key)
+								 (cons (org-element-property :key key)
+								       (org-element-property :value key)))))
+					       (ipynb-keywords (cdr (assoc "OX-IPYNB-KEYWORD-METADATA" all-keywords)))
+					       (include-keywords (mapcar 'upcase (split-string (or ipynb-keywords ""))))
+					       (keywords (loop for key in include-keywords
+							       collect (assoc key all-keywords))))
+					  keywords))
+				(kernelspec . ((display_name . "Python 3")
+					       (language . "python")
+					       (name . "python3")))
+				(language_info . ((codemirror_mode . ((name . ipython)
+								      (version . 3)))
+						  (file_extension . ".py")
+						  (mimetype . "text/x-python")
+						  (name . "python")
+						  (nbconvert_exporter . "python")
+						  (pygments_lexer . "ipython3")
+						  (version . "3.5.2"))))))
+	(ipynb (or (and (boundp 'export-file-name) export-file-name)
+		   (concat (file-name-base (buffer-file-name)) ".ipynb")))
+	src-blocks
+	src-results
+	current-src
+	result
+	result-end
+	end
+	data)
+
+    (setq src-blocks (org-element-map (org-element-parse-buffer) 'src-block
+		       (lambda (src)
+			 (when (string= "ipython" (org-element-property :language src))
+			   src))))
+
+    ;; Get a list of (src . results)
+    (setq src-results
+	  (loop for src in src-blocks
+		with result=nil
+		do
+		(setq result
+		      (save-excursion
+			(goto-char (org-element-property :begin src))
+			(let ((location (org-babel-where-is-src-block-result nil nil))
+			      start end
+			      result-content)
+			  (when location
+			    (save-excursion
+			      (goto-char location)
+			      (when (looking-at
+				     (concat org-babel-result-regexp ".*$"))
+				(setq start (1- (match-beginning 0))
+				      end (progn (forward-line 1) (org-babel-result-end))
+				      result-content (buffer-substring-no-properties start end))
+				;; clean up the results a little. This gets rid
+				;; of the RESULTS markers for output and drawers
+				(loop for pat in '("#\\+RESULTS:"
+						   "^: " "^:RESULTS:\\|^:END:")
+				      do
+				      (setq result-content (replace-regexp-in-string
+							    pat
+							    ""
+							    result-content)))
+				;; the results and the end of the results.
+				;; we use the end later to move point.
+				(cons (s-trim result-content) end)))))))
+		collect
+		(cons src result)))
+
+    (setq current-source (pop src-results))
+
+    ;; First block before a src is markdown
+    (if (car current-source)
+	(unless (string= "" (s-trim
+			     (buffer-substring-no-properties
+			      (point-min)
+			      (org-element-property :begin (car current-source)))))
+	  (push (export-ipynb-markdown-cell
+		 (point-min) (org-element-property :begin (car current-source)))
+		cells))
+      (push (export-ipynb-markdown-cell
+	     (point-min) (point-max))
+	    cells))
+
+    (while current-source
+      ;; add the src cell
+      (push (export-ipynb-code-cell current-source) cells)
+      (setq result-end (cdr current-source)
+	    result (car result-end)
+	    result-end (cdr result-end))
+
+      (setq end (max
+		 (or result-end 0)
+		 (org-element-property :end (car current-source))))
+
+      (setq current-source (pop src-results))
+
+      (if current-source
+	  (when (not (string= "" (s-trim (buffer-substring
+					  end
+					  (org-element-property :begin
+								(car current-source))))))
+	    (push (export-ipynb-markdown-cell
+		   end
+		   (org-element-property :begin
+					 (car current-source)))
+		  cells))
+	;; on last block so add rest of document
+	(push (export-ipynb-markdown-cell end (point-max)) cells)))
+
+    (setq data (append
+		`((cells . ,(reverse cells)))
+		(list metadata)
+		'((nbformat . 4)
+		  (nbformat_minor . 0))))
+
+    (with-current-buffer (get-buffer-create "*ox-ipynb*")
+      (erase-buffer)
+      (insert (json-encode data)))
+
+    (switch-to-buffer "*ox-ipynb*")
+    (setq-local export-file-name ipynb)
+    (get-buffer "*ox-ipynb*")))
+
+
+(defun ox-ipynb-export-to-file ()
+  "Export current buffer to an ipynb file."
+  (with-current-buffer (ox-ipynb-export-to-buffer)
+    (write-file export-file-name)
+    export-file-name))
+
+
+(defun ox-ipynb-export-to-file-and-open ()
+  "Export the current buffer to a notebook and open it."
+  (async-shell-command (format "jupyter notebook \"%s\""
+			       (expand-file-name (ox-ipynb-export-to-file)))))
+
+
+(defun nbopen (fname)
+  "Open fname in jupyter notebook."
+  (interactive  (list (read-file-name "Notebook: ")))
+  (shell-command (format "nbopen \"%s\" &" fname)))
+
+
+;; * export menu
+(defun ox-ipynb-export-to-ipynb-buffer (&optional async subtreep visible-only body-only info)
+  (let ((ipynb (concat (file-name-base (buffer-file-name)) ".ipynb")))
+    (org-org-export-as-org async subtreep visible-only body-only info)
+    (with-current-buffer "*Org ORG Export*"
+      (setq-local export-file-name (or
+				    (and (boundp '*export-file-name*)
+					 *export-file-name*)
+				    ipynb))
+      (ox-ipynb-export-to-buffer))))
+
+
+(defun ox-ipynb-export-to-ipynb-file (&optional async subtreep visible-only body-only info)
+  (let ((ipynb (concat (file-name-base (buffer-file-name)) ".ipynb")))
+    (org-org-export-as-org async subtreep visible-only body-only info)
+    (with-current-buffer "*Org ORG Export*"
+      (setq-local export-file-name (or
+				    (and (boundp '*export-file-name*)
+					 *export-file-name*)
+				    ipynb))
+      (ox-ipynb-export-to-file))))
+
+
+(defun ox-ipynb-export-to-ipynb-file-and-open (&optional async subtreep visible-only body-only info)
+  (let ((ipynb (concat (file-name-base (buffer-file-name)) ".ipynb")))
+    (org-org-export-as-org async subtreep visible-only body-only info)
+    (with-current-buffer "*Org ORG Export*"
+      (setq-local export-file-name (or
+				    (and (boundp '*export-file-name*)
+					 *export-file-name*)
+				    ipynb))
+      (ox-ipynb-export-to-file-and-open))))
+
+
+(org-export-define-derived-backend 'jupyter-notebook 'org
+  :menu-entry
+  '(?n "Export to jupyter notebook"
+       ((?b "to buffer" ox-ipynb-export-to-ipynb-buffer)
+	(?n "to notebook" ox-ipynb-export-to-ipynb-file)
+	(?o "to notebook and open" ox-ipynb-export-to-ipynb-file-and-open))))
+
+
+(provide 'ox-ipynb)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-ipynb)
+#+END_SRC
+* NeoTree
+#+BEGIN_SRC emacs-lisp
+(require 'neotree)
+(require 'all-the-icons)
+(setq neo-smart-open t)
+(global-set-key [f8] 'neotree-toggle)
+;; (global-set-key (kbd "C-c n") 'neotree-toggle)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+#+END_SRC
+* WebDev
+** HTML
+*** Tag Highlighting
+#+BEGIN_SRC emacs-lisp
+;;; hl-tags-mode --- Highlight the current SGML tag context
+
+;; Copyright (c) 2011 Mike Spindel <deactivated@gmail.com>
+;; Modified by Amit J Patel <amitp@cs.stanford.edu> for nxml-mode
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; hl-tags-mode is a minor mode for SGML and XML editing that
+;; highlights the current start and end tag.
+;;
+;; To use hl-tags-mode, add the following to your .emacs:
+;;
+;;   (require 'hl-tags-mode)
+;;   (add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
+;;   (add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
+
+;;; Code:
+
+(eval-when-compile (require 'cl))
+
+(defgroup hl-tags nil
+  "Highlight the current tag pair in XML and SGML modes."
+  :group 'convenience)
+
+(defface hl-tags-face
+  '((t :inherit highlight))
+  "Face used to highlight matching tags."
+  :group 'hl-tags)
+
+
+(defvar hl-tags-start-overlay nil)
+(make-variable-buffer-local 'hl-tags-start-overlay)
+
+(defvar hl-tags-end-overlay nil)
+(make-variable-buffer-local 'hl-tags-end-overlay)
+
+
+(defun hl-tags-sgml-get-context ()
+  (save-excursion (car (last (sgml-get-context)))))
+
+(defun hl-tags-sgml-pair (ctx)
+  (if ctx (cons (sgml-tag-start ctx) (sgml-tag-end ctx))
+    '(1 . 1)))
+
+(defun hl-tags-context-sgml-mode ()
+  (save-excursion
+    (when (looking-at "<") (forward-char 1))
+    (let* ((ctx (hl-tags-sgml-get-context))
+           (boundaries
+            (and ctx (case (sgml-tag-type ctx)
+                       ('empty (cons ctx nil))
+                       ('close
+                        (goto-char (sgml-tag-start ctx))
+                        (cons (hl-tags-sgml-get-context) ctx))
+                       ('open
+                        (goto-char (sgml-tag-start ctx))
+                        (sgml-skip-tag-forward 1)
+                        (backward-char 1)
+                        (cons ctx (hl-tags-sgml-get-context)))))))
+      (when boundaries
+        (cons (hl-tags-sgml-pair (car boundaries))
+              (hl-tags-sgml-pair (cdr boundaries)))))))
+
+(defun hl-tags-context-nxml-mode ()
+  (condition-case nil
+      (save-excursion
+        (let (start1 end1 start2 end2)
+          (when (looking-at "<") (forward-char))
+          (nxml-up-element 1)
+          (setq end2 (point))
+
+          (nxml-backward-single-balanced-item)
+          (setq start2 (point))
+
+          (nxml-up-element -1)
+          (setq end1 (point))
+
+          (nxml-forward-single-balanced-item)
+          (setq start1 (point))
+
+          (cons (cons start1 end1) (cons start2 end2))))
+    (error nil)))
+
+(defun hl-tags-context ()
+  "Return a pair ((start . end) . (start . end)) containing the
+boundaries of the current start and end tag , or nil."
+  (if (eq major-mode 'nxml-mode)
+      (hl-tags-context-nxml-mode)
+    (hl-tags-context-sgml-mode)))
+
+(defun hl-tags-update ()
+  (let ((ctx (hl-tags-context)))
+    (if (null ctx)
+        (hl-tags-hide)
+      (hl-tags-show)
+      (move-overlay hl-tags-start-overlay (caar ctx) (cdar ctx))
+      (move-overlay hl-tags-end-overlay (cadr ctx) (cddr ctx)))))
+
+(defun hl-tags-show ()
+  (unless hl-tags-start-overlay
+    (setq hl-tags-start-overlay (make-overlay 1 1)
+          hl-tags-end-overlay (make-overlay 1 1))
+    (overlay-put hl-tags-start-overlay 'face 'hl-tags-face)
+    (overlay-put hl-tags-end-overlay 'face 'hl-tags-face)))
+
+(defun hl-tags-hide ()
+  (when hl-tags-start-overlay
+    (delete-overlay hl-tags-start-overlay)
+    (delete-overlay hl-tags-end-overlay)))
+
+(define-minor-mode hl-tags-mode
+  "Toggle hl-tags-mode."
+  nil "" nil
+  (if hl-tags-mode
+      (progn
+        (add-hook 'post-command-hook 'hl-tags-update nil t)
+        (add-hook 'change-major-mode-hook 'hl-tags-hide nil t))
+    (remove-hook 'post-command-hook 'hl-tags-update t)
+    (remove-hook 'change-major-mode-hook 'hl-tags-hide t)
+    (hl-tags-hide)))
+
+
+(provide 'hl-tags-mode)
+#+END_SRC
+*** Style Hooks
+#+BEGIN_SRC emacs-lisp
+(require 'emmet-mode)
+;; (require 'web-mode)
+(add-hook 'html-mode-hook 'emmet-mode)
+(require 'hl-tags-mode)
+(add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
+(add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
+
+;; (add-hook 'html-mode-hook 'web-mode)
+;; (setq web-mode-enable-current-element-highlight t)
+#+END_SRC
+** JavaScript
+*** Indent
+#+BEGIN_SRC emacs-lisp
+(setq-default js2-basic-offset 2)
+#+END_SRC
+*** js-indent
+#+BEGIN_SRC emacs-lisp
+;; (add-to-list 'load-path "~/.emacs.d/lisp/js-align")
+#+END_SRC
+*** js2 Mode
+#+BEGIN_SRC emacs-lisp
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; (require 'js-align)
+;; (add-hook 'js-mode-hook 'js-align-mode)
+;; Better imenu
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+#+END_SRC
+*** js2 Refactor, Red
+#+BEGIN_SRC emacs-lisp
+(require 'js2-refactor)
+(require 'xref-js2)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+(add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+#+END_SRC
+*** Completion
+#+BEGIN_SRC emacs-lisp
+(require 'tern)
+(require 'company)
+;; (require 'company-mode)
+(require 'company-tern)
+
+(add-to-list 'company-backends 'company-tern)
+(add-hook 'js2-mode-hook (lambda ()
+                           (tern-mode)
+                           (company-mode)))
+
+;; Disable completion keybindings, as we use xref-js2 instead
+(define-key tern-mode-keymap (kbd "M-.") nil)
+(define-key tern-mode-keymap (kbd "M-,") nil)
+
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
+#+END_SRC
+* Helm
+#+BEGIN_SRC emacs-lisp
+(require 'helm)
+(require 'helm-config)
+
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t)
+
+(defun spacemacs//helm-hide-minibuffer-maybe ()
+  "Hide minibuffer in Helm session if we use the header line as input field."
+  (when (with-helm-buffer helm-echo-input-in-header-line)
+    (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+      (overlay-put ov 'window (selected-window))
+      (overlay-put ov 'face
+                   (let ((bg-color (face-background 'default nil)))
+                     `(:background ,bg-color :foreground ,bg-color)))
+      (setq-local cursor-type nil))))
+
+
+(add-hook 'helm-minibuffer-set-up-hook
+          'spacemacs//helm-hide-minibuffer-maybe)
+
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+
+(helm-mode 1)
+#+END_SRC
+* Kill Buffers
+  Kill the scratch buffer
+  #+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message "")
+
+(defun remove-scratch-buffer ()
+  (if (get-buffer "*scratch*")
+      (kill-buffer "*scratch*")))
+(add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
+  #+END_SRC
+
+  Disable messages tab from hanging around.
+#+BEGIN_SRC emacs-lisp
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
+#+END_SRC
+  Stop the completions tab for staying around way too long.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'minibuffer-exit-hook
+      '(lambda ()
+         (let ((buffer "*Completions*"))
+           (and (get-buffer buffer)
+            (kill-buffer buffer)))))
+#+END_SRC
