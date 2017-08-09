@@ -1481,6 +1481,7 @@ boundaries of the current start and end tag , or nil."
   (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))
 #+END_SRC
 * Helm
+** Config
 #+BEGIN_SRC emacs-lisp
 (require 'helm)
 (require 'helm-config)
@@ -1525,6 +1526,18 @@ boundaries of the current start and end tag , or nil."
 
 (helm-mode 1)
 #+END_SRC
+** Override Emacs Defaults
+   Use =helm-find-files= over =find-files=
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+   #+END_SRC
+   Use =helm-M-x= over =M-x=
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x)
+   #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+   #+END_SRC
 * Kill Buffers
   Kill the scratch buffer
   #+BEGIN_SRC emacs-lisp
