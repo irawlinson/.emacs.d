@@ -832,6 +832,7 @@
          ;;                (mode . css-mode)))
          ("Subversion" (name . "\*svn"))
          ("Magit" (name . "\*magit"))
+         ("Helm" (name . "\*helm*"))
          ("Help" (or (name . "\*Help\*")
                      (name . "\*Apropos\*")
                      (name . "\*info\*"))))))
