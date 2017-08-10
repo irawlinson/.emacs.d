@@ -141,8 +141,6 @@
         theme-changer
         tuareg
         wc-mode
-        zenburn
-        zenburn-theme
         ace-jump-mode
         all-the-icons
         async
@@ -195,7 +193,8 @@
         web-mode
         with-editor
         xref-js2
-        yasnippet))
+        yasnippet
+        zenburn-theme))
 
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
                          ("gnu". "https://elpa.gnu.org/packages/")
