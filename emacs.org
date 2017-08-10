@@ -184,11 +184,14 @@
         popup
         projectile
         pyvenv
+        rainbow-mode
+        robe
         s
         tern
         tern-auto-complete
         tern-context-coloring
         tern-django
+        undo-tree
         use-package
         web-mode
         with-editor
@@ -1424,6 +1427,10 @@ boundaries of the current start and end tag , or nil."
 ;; (add-hook 'html-mode-hook 'web-mode)
 ;; (setq web-mode-enable-current-element-highlight t)
 #+END_SRC
+** CSS
+#+BEGIN_SRC emacs-lisp
+(add-hook 'css-mode-hook 'rainbow-mode)
+#+END_SRC
 ** JavaScript
 *** Indent
 #+BEGIN_SRC emacs-lisp
@@ -1547,6 +1554,15 @@ boundaries of the current start and end tag , or nil."
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t)
    #+END_SRC
+* Undo Tree
+#+BEGIN_SRC emacs-lisp
+(global-undo-tree-mode)
+#+END_SRC
+* Ruby
+** Robe Mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'ruby-mode-hook 'robe-mode)
+#+END_SRC
 * Kill Buffers
   Kill the scratch buffer
   #+BEGIN_SRC emacs-lisp
