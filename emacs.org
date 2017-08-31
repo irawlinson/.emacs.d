@@ -199,8 +199,7 @@
         yasnippet
         zenburn-theme))
 
-(setq package-archives '(("org" . "http://orgmode.org/elpa/")
-                         ("gnu". "https://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu". "https://elpa.gnu.org/packages/")
 			 ("marmalade". "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
@@ -243,18 +242,34 @@
 #+END_SRC
 * Path
 #+BEGIN_SRC emacs-lisp
-(defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell (replace-regexp-in-string
-                          "[ \t\n]*$"
-                          ""
-                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq eshell-path-env path-from-shell) ; for eshell users
-    (setq exec-path (split-string path-from-shell path-separator))))
+;; (add-to-list 'exec-path "C:/MinGW/bin")
 
-(when window-system (set-exec-path-from-shell-PATH))
+(let (
+      (mypaths
+       '(
+         "C:/Python27/;C:/Python27/Scripts"
+         "C:/Windows/system32"
+         "C:/Windows"
+         "C:/Windows/System32/Wbem"
+         "C:/Windows/System32/WindowsPowerShell/v1.0/"
+         "C:/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+         "%SystemRoot%/system32"
+         "%SystemRoot%"
+         "%SystemRoot%/System32/Wbem"
+         "%SYSTEMROOT%/System32/WindowsPowerShell/v1.0/"
+         "C:/ProgramData/chocolatey/bin"
+         "C:/Program Files/Git/cmd"
+         "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/"
+         "C:/Program Files/SumatraPDF"
+         ))
+      )
 
-(setenv "GOPATH" "/Users/isaiahrawlinson/go")
+  (setenv "PATH" (mapconcat 'identity mypaths path-separator) )
+
+  (setq exec-path (append mypaths (list "." exec-directory)) )
+  )
+
+(setenv "PATH" (mapconcat #'identity exec-path path-separator))
 #+END_SRC
 ** LaTeX Distribution
 #+BEGIN_SRC emacs-lisp
@@ -335,10 +350,8 @@
    | fn   | hyper |
 ** Apple Keyboard
  #+BEGIN_SRC emacs-lisp
-(setq ns-command-modifier 'meta)
-(setq ns-alternate-modifier 'hyper)
-(setq mac-control-modifier 'control)
-(setq ns-function-modifier 'hyper)
+(setq w32-pass-apps-to-system nil)
+(setq w32-apps-modifier 'hyper) ; Menu/App key
  #+END_SRC
 ** Functions
    - Eval and replace
