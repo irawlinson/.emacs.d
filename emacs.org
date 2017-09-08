@@ -306,7 +306,7 @@
 #+END_SRC
 ** Font
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "DejaVu Sans Mono-14:medium:book")
+(set-frame-font "DejaVu Sans Mono-10:medium:book")
 ;; (set-frame-font "Ubuntu Mono-20:medium")
 #+END_SRC
 ** Lines
