@@ -638,6 +638,9 @@
   (turn-on-auto-fill))
 
 (add-hook 'org-mode-hook 'my-org-hooks)
+
+(eval-after-load 'org
+  '(setf org-highlight-latex-and-related '(latex)))
 #+END_SRC
 ** CDLaTeX
 #+BEGIN_SRC emacs-lisp
@@ -660,10 +663,18 @@
 ;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
 #+END_SRC
+** Output Syntax Highlighting
+#+BEGIN_SRC emacs-lisp
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+#+END_SRC
 * Skeletons
   My default org-mode latex header
 #+BEGIN_SRC emacs-lisp
-(define-skeleton org-latex-skeleton
+(define-skeleton org-skeleton-notebook
   "Header info for a emacs-org file."
   "Title: "
   "#+TITLE:     " str " \n"
@@ -677,11 +688,30 @@
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
 (add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o l") 'org-latex-skeleton)))
+          (lambda () (local-set-key (kbd "H-o l") 'org-skeleton-notebook)))
 #+END_SRC
+
+  A homework file skeleton
+  #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-homework
+  "Header info for a emacs-org file."
+  "Title: "
+  "#+TITLE:     " str " \n"
+  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+email:     isaiah.rawlinson@optum.com\n"
+  "#+date:      \n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
+  "#+LATEX_HEADER: \\usepackage{fullpage,listings,inconsolata,graphicx,units}\n"
+  "#+OPTIONS: toc:nil ':t\n"
+  "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
+  )
+  #+END_SRC
+
   A matrix skeleton
 #+BEGIN_SRC emacs-lisp
-(define-skeleton org-latex-matrix-skeleton
+(define-skeleton org-skeleton-latex-matrix
   "A matrix in latex org mode."
   ""
   > "#+ATTR_LATEX: :mode "
@@ -693,11 +723,11 @@
   "| " _ " |"
   )
 (add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-m") 'org-latex-matrix-skeleton)))
+          (lambda () (local-set-key (kbd "H-m") 'org-skeleton-latex-matrix)))
 #+END_SRC
   A skeleton for Beamer Presentations
 #+BEGIN_SRC emacs-lisp
-(define-skeleton org-beamer-skeleton
+(define-skeleton org-skeleton-beamer
   "Header for a Beamer presentation in org-mode."
   "#+TITLE:     " str "\n"
   "#+AUTHOR:    Isaiah Rawlinson\n"
@@ -722,7 +752,7 @@
   )
 
 (add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o b") 'org-beamer-skeleton)))
+          (lambda () (local-set-key (kbd "H-o b") 'org-skeleton-beamer)))
 #+END_SRC
 * Functions
 ** Rename a file
