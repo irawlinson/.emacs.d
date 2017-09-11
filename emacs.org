@@ -240,6 +240,12 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 #+END_SRC
+** Spellcheck
+ #+BEGIN_SRC emacs-lisp
+(setq ispell-program-name "aspell")
+(setq ispell-personal-dictionary "~/.emacs.d/.ispell")
+(require 'ispell)
+ #+END_SRC
 * Path
 #+BEGIN_SRC emacs-lisp
 ;; (add-to-list 'exec-path "C:/MinGW/bin")
@@ -261,6 +267,7 @@
          "C:/Program Files/Git/cmd"
          "C:/Program Files/MiKTeX 2.9/miktex/bin/x64/"
          "C:/Program Files/SumatraPDF"
+         "C:/Program Files (x86)/Aspell/bin"
          ))
       )
 
@@ -651,6 +658,10 @@
   (turn-on-auto-fill))
 
 (add-hook 'org-mode-hook 'my-org-hooks)
+#+END_SRC
+** Sumatra
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "org" '(progn (setcdr (assoc "\\.pdf\\'" org-file-apps) "SumatraPDF %s")))
 #+END_SRC
 ** CDLaTeX
 #+BEGIN_SRC emacs-lisp
