@@ -253,7 +253,8 @@
 (let (
       (mypaths
        '(
-         "C:/Python27/;C:/Python27/Scripts"
+         "C:/Python27/"
+         "C:/Python27/Scripts"
          "C:/Windows/system32"
          "C:/Windows"
          "C:/Windows/System32/Wbem"
@@ -470,6 +471,7 @@
 ** Elpy Configuration
 #+BEGIN_SRC emacs-lisp
 (elpy-enable)
+(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
 #+END_SRC
 ** Shell Completion
 #+BEGIN_SRC emacs-lisp
@@ -534,12 +536,6 @@
     '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
       :help "Run latexmk on file")
     TeX-command-list)))
-#+END_SRC
-** Skim
-#+BEGIN_SRC emacs-lisp
-(setq TeX-view-program-selection '((output-pdf "Skim")))
-(setq TeX-view-program-list
-      '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 #+END_SRC
 * Org Mode
 #+BEGIN_SRC emacs-lisp
@@ -685,9 +681,11 @@
 ;; (setq org-bullets-bullet-list '("✙" "♱" "♰" "☥" "✞" "✟" "✝" "†" "✠" "✚" "✜" "✛" "✢" "✣" "✤" "✥"))
 #+END_SRC
 * Skeletons
-  My default org-mode latex header
-#+BEGIN_SRC emacs-lisp
-(define-skeleton org-latex-skeleton
+** Org
+*** Standard LaTeX header
+    My default org-mode latex header
+  #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-latex
   "Header info for a emacs-org file."
   "Title: "
   "#+TITLE:     " str " \n"
@@ -700,12 +698,41 @@
   "#+OPTIONS: toc:2 H:4 ':t\n"
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o l") 'org-latex-skeleton)))
-#+END_SRC
-  A matrix skeleton
-#+BEGIN_SRC emacs-lisp
-(define-skeleton org-latex-matrix-skeleton
+  #+END_SRC
+*** LaTeX Paper
+    #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-paper
+  "Header for a LaTeX paper in org mode"
+  "#+TITLE:\n"
+  "#+AUTHOR:\n"
+  "#+email:\n"
+  "#+DATE:\n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{amsfonts,fullpage,setspace,natbib}\n"
+  "#+BIBLIOGRAPHY: refs chicago\n"
+  "#+LANGUAGE: en\n"
+  "#+OPTIONS: ':t toc:nil\n"
+  "\n"
+  "#+BEGIN_EXPORT latex\n"
+  "%==========Title==========\n"
+  "\\noindent Isaiah Rawlinson\\\\\n"
+  "History of American Popular Music\\\\\n"
+  "\n"
+  "\\bigskip\n"
+  "\\begin{center}\n"
+  "\\Large " str "\n"
+  "\\end{center}\n"
+  "\n"
+  "\\smallskip\n"
+  "\\doublespacing\n"
+  "#+END_EXPORT\n"
+  )
+    #+END_SRC
+*** LaTeX Matrix
+    A matrix skeleton
+  #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-latex-matrix
   "A matrix in latex org mode."
   ""
   > "#+ATTR_LATEX: :mode "
@@ -718,10 +745,11 @@
   )
 (add-hook 'org-mode-hook
           (lambda () (local-set-key (kbd "H-m") 'org-latex-matrix-skeleton)))
-#+END_SRC
-  A skeleton for Beamer Presentations
-#+BEGIN_SRC emacs-lisp
-(define-skeleton org-beamer-skeleton
+  #+END_SRC
+*** Beamer Presentation
+    A skeleton for Beamer Presentations
+  #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-beamer
   "Header for a Beamer presentation in org-mode."
   "#+TITLE:     " str "\n"
   "#+AUTHOR:    Isaiah Rawlinson\n"
@@ -744,10 +772,7 @@
   "#+BEAMER_HEADER: \\graphicspath{{./images/}}\n"
   "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
   )
-
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o b") 'org-beamer-skeleton)))
-#+END_SRC
+  #+END_SRC
 * Functions
 ** Rename a file
 #+BEGIN_SRC emacs-lisp
