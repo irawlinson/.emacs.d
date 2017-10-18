@@ -23,7 +23,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(initial-buffer-choice 'ibuffer)
+ ;; '(initial-buffer-choice 'ibuffer)
  '(TeX-fold-auto nil)
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
@@ -365,12 +365,6 @@
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
-
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o l") 'org-latex-skeleton)))
-
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-m") 'org-latex-matrix-skeleton)))
 #+END_SRC
 ** Lazy Set Key
 #+BEGIN_SRC emacs-lisp
@@ -672,14 +666,16 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 #+END_SRC
 * Skeletons
-  My default org-mode latex header
-#+BEGIN_SRC emacs-lisp
+** Org
+*** LaTeX Notebook Header
+    - Contents limited to 2 headers deep
+ #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-notebook
   "Header info for a emacs-org file."
   "Title: "
   "#+TITLE:     " str " \n"
   "#+AUTHOR:    Isaiah Rawlinson\n"
-  "#+email:     isaiah.rawlinson@optum.com\n"
+  "#+email:     \n"
   "#+LATEX_CLASS: article\n"
   "#+LATEX_CLASS_OPTIONS: [12pt]\n"
   "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
@@ -687,18 +683,36 @@
   "#+OPTIONS: toc:2 H:4 ':t\n"
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o l") 'org-skeleton-notebook)))
-#+END_SRC
+ #+END_SRC
+*** LaTeX Study Guide
+    - Contents limited to 2 headers deep
+    - Margins reduced
+ #+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-studyguide
+  "Header info for a studyguide."
+  "Title: "
+  "#+TITLE:     " str " \n"
+  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+email:     \n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
+  "#+LATEX_HEADER: \\usepackage{fullpage,listings,inconsolata,graphicx,units}\n"
+  "#+LATEX_HEADER: \\usepackage[margin=0.5in]{geometry}\n"
+  "#+OPTIONS: toc:2 H:4 ':t\n"
+  "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
+  )
+ #+END_SRC
 
-  A homework file skeleton
-  #+BEGIN_SRC emacs-lisp
+*** Homework Header
+    - No table of contents
+   #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-homework
   "Header info for a emacs-org file."
   "Title: "
   "#+TITLE:     " str " \n"
   "#+AUTHOR:    Isaiah Rawlinson\n"
-  "#+email:     isaiah.rawlinson@optum.com\n"
+  "#+email:     \n"
   "#+date:      \n"
   "#+LATEX_CLASS: article\n"
   "#+LATEX_CLASS_OPTIONS: [12pt]\n"
@@ -707,10 +721,9 @@
   "#+OPTIONS: toc:nil ':t\n"
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
-  #+END_SRC
-
-  A matrix skeleton
-#+BEGIN_SRC emacs-lisp
+   #+END_SRC
+*** LaTeX Matrix
+ #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-latex-matrix
   "A matrix in latex org mode."
   ""
@@ -722,11 +735,9 @@
   > " :math-suffix " (setq ms (skeleton-read "math suffix "))\n
   "| " _ " |"
   )
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-m") 'org-skeleton-latex-matrix)))
-#+END_SRC
-  A skeleton for Beamer Presentations
-#+BEGIN_SRC emacs-lisp
+ #+END_SRC
+*** Beamer Presentations
+ #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-beamer
   "Header for a Beamer presentation in org-mode."
   "#+TITLE:     " str "\n"
@@ -750,10 +761,24 @@
   "#+BEAMER_HEADER: \\graphicspath{{./images/}}\n"
   "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
   )
-
-(add-hook 'org-mode-hook
-          (lambda () (local-set-key (kbd "H-o b") 'org-skeleton-beamer)))
-#+END_SRC
+ #+END_SRC
+** Python
+   Default file header for new files
+   #+BEGIN_SRC emacs-lisp
+(define-skeleton python-skeleton-header
+  "A header for python files"
+  "# !/usr/local/var/pyenv/shims/python\n"
+  "# title           :" (file-name-nondirectory (buffer-file-name)) "\n"
+  "# description     :\n"
+  "# author          :Isaiah Rawlinson\n"
+  "# date            :" (format-time-string "%A, %e %B %Y.") "\n"
+  "# version         :\n"
+  "# usage           :\n"
+  "# notes           :\n"
+  "# python_version  :\n"
+  "# ==================================================\n"
+  )
+   #+END_SRC
 * Functions
 ** Rename a file
 #+BEGIN_SRC emacs-lisp
