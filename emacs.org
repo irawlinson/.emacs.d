@@ -716,7 +716,7 @@
   #+END_SRC
 *** Study Guide
     - Contents limited to 2 headers deep
-    - \frac{1}{2} inch margins
+    - 0.5 inch margins
 #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-studyguide
   "Header info for a studyguide."
