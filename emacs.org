@@ -495,6 +495,20 @@
 (add-hook 'LaTeX-mode-hook
           (lambda () (local-set-key (kbd "C-c C-SPC") 'align-current)))
 #+END_SRC
+** Sumatra
+#+BEGIN_SRC emacs-lisp
+(setq TeX-PDF-mode t)
+(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-method 'synctex)
+(setq TeX-view-program-list
+   '(("Sumatra PDF" ("\"C:/Program Files/SumatraPDF/SumatraPDF.exe\" -reuse-instance"
+                      (mode-io-correlate " -forward-search %b %n ") " %o"))))
+
+(eval-after-load 'tex
+  '(progn
+     (assq-delete-all 'output-pdf TeX-view-program-selection)
+     (add-to-list 'TeX-view-program-selection '(output-pdf "Sumatra PDF"))))
+#+END_SRC
 ** Functions
 #+BEGIN_SRC emacs-lisp
 (defun flyspell-ignore-tex ()
@@ -682,8 +696,9 @@
 #+END_SRC
 * Skeletons
 ** Org
-*** Standard LaTeX header
-    My default org-mode latex header
+*** Notebook
+    - Contents limited to 2 headers deep
+    - Standard margins
   #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-latex
   "Header info for a emacs-org file."
@@ -699,7 +714,26 @@
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
   #+END_SRC
-*** LaTeX Paper
+*** Study Guide
+    - Contents limited to 2 headers deep
+    - \frac{1}{2} inch margins
+#+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-studyguide
+  "Header info for a studyguide."
+  "Title: "
+  "#+TITLE:     " str " \n"
+  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+email:     \n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
+  "#+LATEX_HEADER: \\usepackage{fullpage,listings,inconsolata,graphicx,units}\n"
+  "#+LATEX_HEADER: \\usepackage[margin=0.5in]{geometry}\n"
+  "#+OPTIONS: toc:2 H:4 ':t\n"
+  "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
+  )
+#+END_SRC
+*** Paper
     #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-paper
   "Header for a LaTeX paper in org mode"
@@ -717,7 +751,6 @@
   "#+BEGIN_EXPORT latex\n"
   "%==========Title==========\n"
   "\\noindent Isaiah Rawlinson\\\\\n"
-  "History of American Popular Music\\\\\n"
   "\n"
   "\\bigskip\n"
   "\\begin{center}\n"
@@ -729,7 +762,7 @@
   "#+END_EXPORT\n"
   )
     #+END_SRC
-*** LaTeX Matrix
+*** Matrix
     A matrix skeleton
   #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-latex-matrix
@@ -773,6 +806,23 @@
   "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
   )
   #+END_SRC
+** Python
+   Default header for new files
+#+BEGIN_SRC emacs-lisp
+(define-skeleton python-skeleton-header
+  "A header for python files"
+  "# !/usr/local/var/pyenv/shims/python\n"
+  "# title           :" (file-name-nondirectory (buffer-file-name)) "\n"
+  "# description     :\n"
+  "# author          :Isaiah Rawlinson\n"
+  "# date            :" (format-time-string "%A, %e %B %Y.") "\n"
+  "# version         :\n"
+  "# usage           :\n"
+  "# notes           :\n"
+  "# python_version  :\n"
+  "# ==================================================\n"
+  )
+#+END_SRC
 * Functions
 ** Rename a file
 #+BEGIN_SRC emacs-lisp
