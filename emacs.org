@@ -244,6 +244,10 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 #+END_SRC
+** Emacs Client
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
 * Path
 #+BEGIN_SRC emacs-lisp
 (defun set-exec-path-from-shell-PATH ()
@@ -444,6 +448,10 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 #+END_SRC
 * Python
+** Python Version
+#+BEGIN_SRC emacs-lisp
+;; (setq python-shell-interpreter "python3")
+#+END_SRC
 ** Elpy Configuration
 #+BEGIN_SRC emacs-lisp
 (elpy-enable)
@@ -694,9 +702,10 @@
 (define-skeleton org-skeleton-studyguide
   "Header info for a studyguide."
   "Title: "
-  "#+TITLE:     " str " \n"
-  "#+AUTHOR:    Isaiah Rawlinson\n"
+  "#+TITLE:     \n"
+  "#+AUTHOR:    \n"
   "#+email:     \n"
+  "#+date:      \n"
   "#+LATEX_CLASS: article\n"
   "#+LATEX_CLASS_OPTIONS: [12pt]\n"
   "#+LATEX_HEADER: \\usepackage{mathtools,amsfonts,amssymb,arydshln,mathabx}\n"
@@ -725,6 +734,35 @@
   "#+LaTeX: \\setcounter{secnumdepth}{0}\n"
   )
    #+END_SRC
+*** Paper
+#+BEGIN_SRC emacs-lisp
+(define-skeleton org-skeleton-paper
+  "Header for a LaTeX paper in org mode"
+  "#+TITLE:\n"
+  "#+AUTHOR:\n"
+  "#+email:\n"
+  "#+DATE:\n"
+  "#+LATEX_CLASS: article\n"
+  "#+LATEX_CLASS_OPTIONS: [12pt]\n"
+  "#+LATEX_HEADER: \\usepackage{amsfonts,fullpage,setspace,natbib}\n"
+  "#+BIBLIOGRAPHY: refs chicago\n"
+  "#+LANGUAGE: en\n"
+  "#+OPTIONS: ':t toc:nil\n"
+  "\n"
+  "#+BEGIN_EXPORT latex\n"
+  "%==========Title==========\n"
+  "\\noindent Isaiah Rawlinson\\\\\n"
+  "\n"
+  "\\bigskip\n"
+  "\\begin{center}\n"
+  "\\Large " str "\n"
+  "\\end{center}\n"
+  "\n"
+  "\\smallskip\n"
+  "\\doublespacing\n"
+  "#+END_EXPORT\n"
+  )
+#+END_SRC
 *** LaTeX Matrix
  #+BEGIN_SRC emacs-lisp
 (define-skeleton org-skeleton-latex-matrix
@@ -771,14 +809,14 @@
 (define-skeleton python-skeleton-header
   "A header for python files"
   "# !/usr/local/var/pyenv/shims/python\n"
-  "# title           :" (file-name-nondirectory (buffer-file-name)) "\n"
-  "# description     :\n"
-  "# author          :Isaiah Rawlinson\n"
-  "# date            :" (format-time-string "%A, %e %B %Y.") "\n"
-  "# version         :\n"
-  "# usage           :\n"
-  "# notes           :\n"
-  "# python_version  :\n"
+  "# title          : " (file-name-nondirectory (buffer-file-name)) "\n"
+  "# description    : \n"
+  "# author         : Isaiah Rawlinson\n"
+  "# date           : " (format-time-string "%A, %e %B %Y.") "\n"
+  "# version        : \n"
+  "# usage          : \n"
+  "# notes          : \n"
+  "# python version : \n"
   "# ==================================================\n"
   )
    #+END_SRC
@@ -1620,6 +1658,33 @@ boundaries of the current start and end tag , or nil."
 ** Robe Mode
 #+BEGIN_SRC emacs-lisp
 (add-hook 'ruby-mode-hook 'robe-mode)
+#+END_SRC
+* OCaml
+** Merlin
+#+BEGIN_SRC emacs-lisp
+(let ((opam-share (ignore-errors (car (process-lines "opam" "config" "var"
+                                                     "share")))))
+  (when (and opam-share (file-directory-p opam-share))
+    ;; Register Merlin
+    (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
+    (autoload 'merlin-mode "merlin" nil t nil)
+    ;; Automatically start it in OCaml buffers
+    (add-hook 'tuareg-mode-hook 'merlin-mode t)
+    (add-hook 'caml-mode-hook 'merlin-mode t)
+    ;; Use opam switch to lookup ocamlmerlin binary
+    (setq merlin-command 'opam)))
+#+END_SRC
+*** Auto Complete
+#+BEGIN_SRC emacs-lisp
+(setq merlin-ac-setup 'easy)
+
+; Make company aware of merlin
+(with-eval-after-load 'company
+ (add-to-list 'company-backends 'merlin-company-backend))
+; Enable company on merlin managed buffers
+(add-hook 'merlin-mode-hook 'company-mode)
+; Or enable it globally:
+; (add-hook 'after-init-hook 'global-company-mode)
 #+END_SRC
 * Kill Buffers
   Kill the scratch buffer
