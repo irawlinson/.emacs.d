@@ -245,6 +245,8 @@
 (put 'downcase-region 'disabled nil)
 #+END_SRC
 ** Emacs Client
+   - Open in new window: =emacsclient -c=
+   - Open in existing window: =emacsclient -a ''=
 #+BEGIN_SRC emacs-lisp
 (server-start)
 #+END_SRC
